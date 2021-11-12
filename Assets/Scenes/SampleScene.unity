@@ -587,6 +587,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1289030730}
   - component: {fileID: 1289030729}
+  - component: {fileID: 1289030731}
   m_Layer: 0
   m_Name: car_root
   m_TagString: Untagged
@@ -626,6 +627,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1289030731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289030728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e2aeb2b55e9dd4fbb487b0ed6a6c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axleInfos:
+  - leftWheel: {fileID: 985437339}
+    rightWheel: {fileID: 990089600}
+    motor: 1
+    steering: 1
+  - leftWheel: {fileID: 2050052679}
+    rightWheel: {fileID: 426402320}
+    motor: 1
+    steering: 1
+  maxMotorTorque: 0
+  maxSteeringAngle: 0
 --- !u!1 &1945419337
 GameObject:
   m_ObjectHideFlags: 0
