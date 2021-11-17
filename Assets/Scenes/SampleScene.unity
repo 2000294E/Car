@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9186323669964088690, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_Mass
+      value: 1500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
 --- !u!1 &637354995 stripped
@@ -212,7 +216,8 @@ MonoBehaviour:
     steering: 0
   maxMotorTorque: 450
   maxSteeringAngle: 30
-  brakes: 0
+  maxHandBrakingTorque: 5000
+  isHandBraking: 0
 --- !u!4 &637354997 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
