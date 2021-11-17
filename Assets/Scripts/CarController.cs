@@ -66,6 +66,10 @@ public class AxleInfo
     public Transform leftWheelTransform;
     public Transform rightWheelTransform;
 
-    public bool motor; // is wheel attached to motor?
-    public bool steering; // does this wheel apply steer angle?
+    // note: the motor option determines whether car is Front-Wheel, All-Wheel, or Rear-Wheel
+    // if front wheel motor option is selected, it is Front-Wheel
+    // if both wheels motor option is selected, it is All-Wheel
+    // if rear wheel motor option is selected, it is Rear-Wheel
+    public bool motor;
+    public bool steering;
 }
