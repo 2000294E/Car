@@ -6,10 +6,10 @@ public class CarController : MonoBehaviour
 {
     // variable setting for vehicles
     public List<AxleInfo> axleInfos;
-    public float maxMotorTorque; // maximum torque the motor can apply to wheel
+    public float maxMotorTorque; // maximum torque the motor can apply to wheels
     public float maxSteeringAngle; // maximum steer angle wheel can have
-
-    public float brakes = 0;
+    public float maxHandBrakingTorque; // maximum torque the handbrake can apply to wheels
+    public bool isHandBraking; // check if the car is using handbrake
 
     private void CarMovement()
     {
@@ -32,8 +32,35 @@ public class CarController : MonoBehaviour
                 axleInfo.leftWheel.motorTorque = motor;
                 axleInfo.rightWheel.motorTorque = motor;
             }
+            if (Input.GetKey(KeyCode.Space))
+            {
+                isHandBraking = true;
+                HandBrake(axleInfo);
+            }
+            else if(Input.GetKeyUp(KeyCode.Space))
+            {
+                isHandBraking = false;
+                HandBrake(axleInfo);
+            }
+
             UpdateWheel(axleInfo.leftWheel, axleInfo.leftWheelTransform);
             UpdateWheel(axleInfo.rightWheel, axleInfo.rightWheelTransform);
+        }
+    }
+
+    private void HandBrake(AxleInfo axleInfo)
+    {
+        float handBrake = maxHandBrakingTorque;
+
+        if (isHandBraking)
+        {
+            axleInfo.leftWheel.brakeTorque = handBrake;
+            axleInfo.rightWheel.brakeTorque = handBrake;
+        }
+        else
+        {
+            axleInfo.leftWheel.brakeTorque = 0;
+            axleInfo.rightWheel.brakeTorque = 0;
         }
     }
 
