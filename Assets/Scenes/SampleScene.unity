@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &285557198
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6412128115302814775, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_Name
+      value: RTI_Gray
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.7607317
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.05457878
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.2717705
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973391506926839332, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
 --- !u!1 &426402318
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +241,38 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
+--- !u!1 &637354995 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6412128115302814775, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+  m_PrefabInstance: {fileID: 285557198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &637354996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637354995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e2aeb2b55e9dd4fbb487b0ed6a6c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axleInfos:
+  - leftWheel: {fileID: 1435078158}
+    rightWheel: {fileID: 1942869660}
+    leftWheelTransform: {fileID: 1639320621}
+    rightWheelTransform: {fileID: 1755862082}
+    motor: 1
+    steering: 1
+  - leftWheel: {fileID: 1241431318}
+    rightWheel: {fileID: 1427645450}
+    leftWheelTransform: {fileID: 1899534954}
+    rightWheelTransform: {fileID: 1335918795}
+    motor: 1
+    steering: 0
+  maxMotorTorque: 450
+  maxSteeringAngle: 30
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +666,11 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
+--- !u!146 &1241431318 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 5557553835175895472, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+  m_PrefabInstance: {fileID: 285557198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1289030728
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,17 +733,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e2aeb2b55e9dd4fbb487b0ed6a6c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axleInfos:
-  - leftWheel: {fileID: 985437339}
-    rightWheel: {fileID: 990089600}
-    motor: 1
-    steering: 1
-  - leftWheel: {fileID: 2050052679}
-    rightWheel: {fileID: 426402320}
-    motor: 1
-    steering: 0
+  axleInfos: []
   maxMotorTorque: 400
   maxSteeringAngle: 30
+--- !u!4 &1335918795 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 267050503917301760, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+  m_PrefabInstance: {fileID: 285557198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &1427645450 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 6428055062897250145, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+  m_PrefabInstance: {fileID: 285557198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &1435078158 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 8124347368861147274, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+  m_PrefabInstance: {fileID: 285557198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1639320621 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1146952277851722341, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+  m_PrefabInstance: {fileID: 285557198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1755862082 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4445320612249301431, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+  m_PrefabInstance: {fileID: 285557198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1899534954 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 722739150002789304, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+  m_PrefabInstance: {fileID: 285557198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &1942869660 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 3563945023447612727, guid: d5147b9cadc415f41a117cb24eada08a, type: 3}
+  m_PrefabInstance: {fileID: 285557198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1945419337
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,7 +857,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8cb54b043400f054daee0b85c187b9d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

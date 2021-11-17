@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class SimpleCarController : MonoBehaviour
 {
-    public List<AxleInfo> axleInfos; // information about each individual axle
+    // variable setting for vehicles
+    public List<AxleInfo> axleInfos;
     public float maxMotorTorque; // maximum torque the motor can apply to wheel
     public float maxSteeringAngle; // maximum steer angle wheel can have
 
-    public void FixedUpdate()
+    private void CarMovement()
     {
-        float motor = maxMotorTorque * Input.GetAxis("Vertical"); // make car move forward or backwards
-        float steering = maxSteeringAngle * Input.GetAxis("Horizontal"); // make car able to turn
+        // get controls to steer and move the car
+        float motor = maxMotorTorque * Input.GetAxis("Vertical");
+        float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
 
+        // add a checklist to determine attribute of the tyres:
+        // 1. the tyres be able to steer?
+        // 2. should the tyres be able to add power to move?
         foreach (AxleInfo axleInfo in axleInfos)
         {
             if (axleInfo.steering)
@@ -25,7 +30,28 @@ public class SimpleCarController : MonoBehaviour
                 axleInfo.leftWheel.motorTorque = motor;
                 axleInfo.rightWheel.motorTorque = motor;
             }
+            UpdateWheel(axleInfo.leftWheel, axleInfo.leftWheelTransform);
+            UpdateWheel(axleInfo.rightWheel, axleInfo.rightWheelTransform);
         }
+    }
+
+    private void UpdateWheel(WheelCollider collider, Transform transform)
+    {
+        // Get wheel collider state
+        Vector3 position;
+        Quaternion rotation;
+        collider.GetWorldPose(out position, out rotation); // gets world space pos of wheel accounting for ground contact,
+                                                           // suspension limits, steer angle & rotation angle (in degrees)
+
+        // Set wheel transform state
+        transform.position = position;
+        transform.rotation = rotation;
+    }
+
+    // update the physics of the vehicle here
+    public void FixedUpdate()
+    {
+        CarMovement();
     }
 }
 
@@ -34,6 +60,8 @@ public class AxleInfo
 {
     public WheelCollider leftWheel;
     public WheelCollider rightWheel;
-    public bool motor; // is this wheel attached to motor?
+    public Transform leftWheelTransform;
+    public Transform rightWheelTransform;
+    public bool motor; // is wheel attached to motor?
     public bool steering; // does this wheel apply steer angle?
 }
