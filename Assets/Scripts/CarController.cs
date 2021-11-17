@@ -9,9 +9,11 @@ public class CarController : MonoBehaviour
     public float maxMotorTorque; // maximum torque the motor can apply to wheel
     public float maxSteeringAngle; // maximum steer angle wheel can have
 
+    public float brakes = 0;
+
     private void CarMovement()
     {
-        // get controls to steer and move the car
+        // get controls to steer, move the car.
         float motor = maxMotorTorque * Input.GetAxis("Vertical");
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
 
