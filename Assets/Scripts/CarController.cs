@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleCarController : MonoBehaviour
+public class CarController : MonoBehaviour
 {
     // variable setting for vehicles
     public List<AxleInfo> axleInfos;

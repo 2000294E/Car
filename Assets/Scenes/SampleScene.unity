@@ -198,18 +198,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axleInfos:
-  - leftWheel: {fileID: 1435078158}
-    rightWheel: {fileID: 1942869660}
-    leftWheelTransform: {fileID: 1639320621}
-    rightWheelTransform: {fileID: 1755862082}
-    motor: 1
-    steering: 1
-  - leftWheel: {fileID: 1241431318}
-    rightWheel: {fileID: 1427645450}
-    leftWheelTransform: {fileID: 1899534954}
-    rightWheelTransform: {fileID: 1335918795}
-    motor: 1
-    steering: 0
+  - {leftWheel: {fileID: 1435078158}, rightWheel: {fileID: 1942869660}, leftWheelTransform: {fileID: 1639320621}, rightWheelTransform: {fileID: 1755862082}, motor: 0, steering: 1}
+  - {leftWheel: {fileID: 1241431318}, rightWheel: {fileID: 1427645450}, leftWheelTransform: {fileID: 1899534954}, rightWheelTransform: {fileID: 1335918795}, motor: 1, steering: 0}
   maxMotorTorque: 500
   maxSteeringAngle: 30
 --- !u!4 &637354997 stripped
