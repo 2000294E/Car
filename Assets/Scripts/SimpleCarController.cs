@@ -58,10 +58,14 @@ public class SimpleCarController : MonoBehaviour
 [System.Serializable]
 public class AxleInfo
 {
+    // add wheel collider option into inspector
     public WheelCollider leftWheel;
     public WheelCollider rightWheel;
+
+    // add mesh rendered wheel option into inspector
     public Transform leftWheelTransform;
     public Transform rightWheelTransform;
+
     public bool motor; // is wheel attached to motor?
     public bool steering; // does this wheel apply steer angle?
 }
