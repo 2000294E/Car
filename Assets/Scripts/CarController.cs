@@ -4,64 +4,102 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    // variable setting for vehicles
-    public List<AxleInfo> axleInfos;
-    public float maxMotorTorque; // maximum torque the motor can apply to wheels
-    public float maxSteeringAngle; // maximum steer angle wheel can have
-    public float maxHandBrakingTorque; // maximum torque the handbrake can apply to wheels
-    public bool isHandBraking; // check if the car is using handbrake
+    // initialize rigidbody of vehicle
+    [SerializeField] private Rigidbody carRB;
+    [SerializeField] private float DownForceValue;
+    private GameObject centerOfMass;
 
-    private void CarMovement()
+    // variable settings for vehicles
+    [SerializeField] private float maxMotorTorque; // maximum torque the motor can apply to wheels
+    [SerializeField] private float maxSteeringAngle; // maximum steer angle wheel can have
+    [SerializeField] private float brakingForce; // force the brake can apply to wheels
+    [SerializeField] private float currentSpeed; // this is for checking in unity inspector -> the current speed the vehicle is at
+    [SerializeField] private float topSpeed; // set top speed of vehicle
+
+    public bool isBraking; // check if the car is using brake
+    
+    // on default, this is 0f, because the value only adds on
+    // when player hits the brakes
+    // this appears in the inspector to check if brakes are being applied
+    public float currentBrakingForce;
+
+    // variables for input settings
+    private float horizontalInput;
+    private float verticalInput;
+
+    // wheel colliders and transform
+    // colliders is used to make the vehicle move
+    // transform is used to make the meshes rotate
+    [SerializeField] private WheelCollider frontLeftWC;
+    [SerializeField] private WheelCollider frontRightWC;
+    [SerializeField] private WheelCollider rearLeftWC;
+    [SerializeField] private WheelCollider rearRightWC;
+
+    [SerializeField] private Transform frontLeftTF;
+    [SerializeField] private Transform frontRightTF;
+    [SerializeField] private Transform rearLeftTF;
+    [SerializeField] private Transform rearRightTF;
+
+    void Start()
     {
-        // get controls to steer, move the car.
-        float motor = maxMotorTorque * Input.GetAxis("Vertical");
-        float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
-
-        // add a checklist to determine attribute of the tyres:
-        // 1. the tyres be able to steer?
-        // 2. should the tyres be able to add power to move?
-        foreach (AxleInfo axleInfo in axleInfos)
-        {
-            if (axleInfo.steering)
-            {
-                axleInfo.leftWheel.steerAngle = steering;
-                axleInfo.rightWheel.steerAngle = steering;
-            }
-            if (axleInfo.motor)
-            {
-                axleInfo.leftWheel.motorTorque = motor;
-                axleInfo.rightWheel.motorTorque = motor;
-            }
-            if (Input.GetKey(KeyCode.Space))
-            {
-                isHandBraking = true;
-                HandBrake(axleInfo);
-            }
-            else if(Input.GetKeyUp(KeyCode.Space))
-            {
-                isHandBraking = false;
-                HandBrake(axleInfo);
-            }
-
-            UpdateWheel(axleInfo.leftWheel, axleInfo.leftWheelTransform);
-            UpdateWheel(axleInfo.rightWheel, axleInfo.rightWheelTransform);
-        }
+        carRB = carRB.GetComponent<Rigidbody>();
     }
 
-    private void HandBrake(AxleInfo axleInfo)
+    // update the physics of the vehicle here
+    void FixedUpdate()
     {
-        float handBrake = maxHandBrakingTorque;
+        GetInput();
+        CarMotor();
+        CarSteering();
+        UpdateWheelRotation();
+        AddDownForce();
+    }
 
-        if (isHandBraking)
+    private void GetInput()
+    {
+        horizontalInput = Input.GetAxisRaw("Horizontal"); // car turns
+        verticalInput = Input.GetAxisRaw("Vertical"); // car moves
+        isBraking = Input.GetKey(KeyCode.Space); // when space key is hit, isBraking = true
+    }
+
+    private void CarMotor()
+    {
+        currentSpeed = Mathf.RoundToInt(carRB.velocity.magnitude * 3.6f);
+
+        if (currentSpeed < topSpeed)
         {
-            axleInfo.leftWheel.brakeTorque = handBrake;
-            axleInfo.rightWheel.brakeTorque = handBrake;
+            // make car an All-Wheel drivetrain by making
+            // both front and rear wheels use the motor
+            frontLeftWC.motorTorque = maxMotorTorque * verticalInput;
+            frontRightWC.motorTorque = maxMotorTorque * verticalInput;
+            rearLeftWC.motorTorque = maxMotorTorque * verticalInput;
+            rearRightWC.motorTorque = maxMotorTorque * verticalInput;
         }
         else
         {
-            axleInfo.leftWheel.brakeTorque = 0;
-            axleInfo.rightWheel.brakeTorque = 0;
+            // prevent car from adding more velocity once reach top speed
+            frontLeftWC.motorTorque = 0;
+            frontRightWC.motorTorque = 0;
+            rearLeftWC.motorTorque = 0;
+            rearRightWC.motorTorque = 0;
         }
+
+        currentBrakingForce = isBraking ? brakingForce : 0f;
+        ApplyBraking();
+    }
+
+    private void ApplyBraking()
+    {
+        frontLeftWC.brakeTorque = currentBrakingForce;
+        frontRightWC.brakeTorque = currentBrakingForce;
+        rearLeftWC.brakeTorque = currentBrakingForce;
+        rearRightWC.brakeTorque = currentBrakingForce;
+    }
+
+    private void CarSteering()
+    {
+        frontLeftWC.steerAngle = maxSteeringAngle * horizontalInput;
+        frontRightWC.steerAngle = maxSteeringAngle * horizontalInput;
     }
 
     private void UpdateWheel(WheelCollider collider, Transform transform)
@@ -77,28 +115,24 @@ public class CarController : MonoBehaviour
         transform.rotation = rotation;
     }
 
-    // update the physics of the vehicle here
-    public void FixedUpdate()
+    // initialize UpdateWheel() via this function
+    private void UpdateWheelRotation()
     {
-        CarMovement();
+        UpdateWheel(frontLeftWC, frontLeftTF);
+        UpdateWheel(frontRightWC, frontRightTF);
+        UpdateWheel(rearLeftWC, rearLeftTF);
+        UpdateWheel(rearRightWC, rearRightTF);
     }
-}
 
-[System.Serializable]
-public class AxleInfo
-{
-    // add wheel collider option into inspector
-    public WheelCollider leftWheel;
-    public WheelCollider rightWheel;
-
-    // add mesh rendered wheel option into inspector
-    public Transform leftWheelTransform;
-    public Transform rightWheelTransform;
-
-    // note: the motor option determines whether car is Front-Wheel, All-Wheel, or Rear-Wheel
-    // if front wheel motor option is selected, it is Front-Wheel
-    // if both wheels motor option is selected, it is All-Wheel
-    // if rear wheel motor option is selected, it is Rear-Wheel
-    public bool motor;
-    public bool steering;
+    // car flips around when driving. this is because there is a lack of anti-roll stabilizers
+    // hence, using the downforce method, an invisible game object named "mass", representing
+    // center of gravity is present. this keeps the car's suspension to be stiff, preventing rollovers
+    // (this does not mean suspension physics are gone, as it is present when car is jumping)
+    private void AddDownForce()
+    {
+        carRB.AddForce(-transform.up * DownForceValue * carRB.velocity.magnitude); // add downforce while rigidbody accelerates
+        centerOfMass = GameObject.Find("mass"); // find the gameobject mass
+        carRB.centerOfMass = centerOfMass.transform.localPosition; // set custom center mass to the local position
+                                                                   // (using car's position instead of world position)
+    }
 }
